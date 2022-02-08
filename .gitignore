@@ -1,0 +1,2 @@
+# foo/**/bar matches 	foo/bar and foo/a/bar and foo/a/b/c/ba
+src/**/img/*.png
