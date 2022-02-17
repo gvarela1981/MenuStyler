@@ -7,10 +7,10 @@ function isPhantomTab(){
     // push into LoadedTab array an element with gestorMenu.items.tab.id as a key and -1 as value
     // to count how many layers (items) has eahc tab.id
     LayerCopy.forEach(element => LoadedTab[element[1].tab.id] = -1);
-    console.log(LoadedTab)
+    //console.log(LoadedTab)
     //
     LayerCopy.forEach(element => LoadedTab[element[1].tab.id] += 1);
-    console.log(LoadedTab)
+    //console.log(LoadedTab)
     // all phtantom tabs has id of "" just like basemaps, if LoadedTabs[""] is greater than one
     // there is a Phantom layer alongside with basmaps
     if(LoadedTab[""] > 0) isPhantom = 1;
@@ -27,27 +27,26 @@ gestorMenu.getItems = function(){
 
 function phantom2NamedTab(){
     // Agrego el tab para reemplazar al tab fantasma
-    t1 = new Tab('t1')
-    t1.id  = 'dataJson'
-    t1.listType = 'accordion'
-    impresorGroupTemp = impresorGroupWMSSelector;
-    info = new LayersInfoWMTS()
+    if(isPhantomTab() == 1) {
+        t1 = new Tab('t1')
+        t1.id  = 'dataJson'
+        t1.listType = 'accordion'
+        impresorGroupTemp = impresorGroupWMSSelector;
+        info = new LayersInfoWMTS()
 
-    // saco los items de gestorMenu a un array para iterarlo
-    // no lo puedo iterar desde gestorMenu.items
-    // itemsLoop es un array asociado, al modificar este array
-    // se modifica al atributo del objeto gestorMenu
-    var itemsLoop = gestorMenu.getItems()
-    for(i in itemsLoop){
-        itemsLoop[i].tab.id = t1.id
+        // saco los items de gestorMenu a un array para iterarlo
+        // no lo puedo iterar desde gestorMenu.items
+        // itemsLoop es un array asociado, al modificar este array
+        // se modifica al atributo del objeto gestorMenu
+        var itemsLoop = gestorMenu.getItems()
+        for(i in itemsLoop){
+            itemsLoop[i].tab.id = t1.id
+        }
+        console.log("----------")   
+
+        gestorMenu.addTab(t1);
+        gestorMenu.printMenu();   
     }
-
-    gestorMenu.addTab(t1);
-    gestorMenu.printMenu();
-}
-
-function unGhost(){
-  if(isPhantomTab() == 1) phantom2NamedTab()
 }
 
 
@@ -61,6 +60,3 @@ function filterByOrigin(){
     gestorMenu.printMenu();
 }
 
-	
-	
-	
